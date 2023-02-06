@@ -13,8 +13,10 @@ const app = express();
 const port = 3000;
 const filePath = "./db/data.json";
 
-app.use(bodyParser.json());
 app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
 
 // Get all users data from the database
 app.get("/api/users", (req, res) => {
@@ -28,7 +30,9 @@ app.get("/api/users", (req, res) => {
       });
     }
 
-    if (!name) return res.send(JSON.parse(data));
+    if (!name) {
+      return res.send(JSON.parse(data));
+    }
 
     const users = JSON.parse(data);
     const user = users.find(
@@ -39,7 +43,9 @@ app.get("/api/users", (req, res) => {
     );
 
     // If user is not found, return empty array
-    if (!user) return res.send(users);
+    if (!user) {
+      return res.send(users);
+    }
 
     res.send(typeof user === "object" ? [user] : user);
   });
@@ -58,8 +64,9 @@ app.get("/api/users/:id", (req, res) => {
     const users = JSON.parse(data);
     const filteredUsers = users.find((user) => user.id === id);
 
-    if (!filteredUsers)
+    if (!filteredUsers) {
       return res.status(404).send({ message: "User not found" });
+    }
 
     res.send(filteredUsers);
   });
@@ -131,7 +138,9 @@ app.put("/api/users/:id", (req, res) => {
     const users = JSON.parse(data);
     const user = users.find((user) => user.id === req.params.id);
 
-    if (!user) return res.status(404).send("User not found");
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
 
     const physicalAddress = { ...req.body.physical_address };
     const billingAddress = { ...req.body.billing_address };

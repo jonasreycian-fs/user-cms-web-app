@@ -16,7 +16,7 @@ services:
     restart: always
     build:
       context: ./frontend
-      dockerfile: Dockerfile
+      dockerfile: DockerfileMini
     container_name: user-cms-frontend
     ports:
       - 8000:80
