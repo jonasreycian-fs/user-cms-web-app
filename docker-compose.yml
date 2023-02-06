@@ -6,7 +6,7 @@ services:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    container_name: eca-api
+    container_name: user-cms-api
     restart: always
     ports:
       - 3000:3000
@@ -17,7 +17,7 @@ services:
     build:
       context: ./frontend
       dockerfile: DockerfileMini
-    container_name: eca-frontend
+    container_name: user-cms-frontend
     ports:
       - 8000:80
     depends_on:
