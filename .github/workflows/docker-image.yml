@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker compose
-      run: docker compose build .
+      run: docker compose build 
       
 #     - name: Build the frontend docker image
 #       run: docker build ./frontend --tag user-cms-web:$(date +%s)
