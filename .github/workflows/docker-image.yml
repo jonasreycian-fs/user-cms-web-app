@@ -1,0 +1,21 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Backend Docker image
+      run: docker build ./backend --tag api:$(date +%s)
+      
+    - name: Build the frontend docker image
+      run: docker build ./frontend --tag user-cms-web:$(date +%s)
